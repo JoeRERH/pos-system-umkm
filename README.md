@@ -4,8 +4,8 @@ Program Point of Sales sederhana untuk manajemen bahan UMKM.
 ## Informasi Kelompok
 - Nomor Kelompok: 2
 - Anggota:
-  1. Johannes Ronald Elyeser Roparulian Hutagalung (24130400002)
-  2. Fajar Dwiharjo (24130500010)
+  Johannes Ronald Elyeser Roparulian Hutagalung (24130400002)
+  Fajar Dwiharjo (24130500010)
 - UMKM Target: 
   - Siomay Ikan Ibu Yati
   - Rotice (Waffle Ice Cream)
@@ -58,5 +58,5 @@ project/
 4. Laporan penjualan
 
 ## Kontak
-- Email: [Email Anggota Kelompok]
+- Email: [joererh@gmail.com]
 - Kelas: Algo5
