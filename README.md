@@ -1,60 +1,201 @@
-# Sistem POS (Point of Sales) UMKM
-Project ini merupakan implementasi sistem POS sederhana untuk UMKM dalam bahasa C++.
+# Point of Sales (POS) System untuk UMKM
+Sistem manajemen penjualan sederhana untuk UMKM, dibangun menggunakan C++.
 
-## Anggota Kelompok 2
+## Tim Pengembang
 - Johannes Ronald Elyeser Roparulian Hutagalung (24130400002)
 - Fajar Dwiharjo (24130500010)
 
-## Fitur Sistem
+## Daftar Isi
+- [Tentang Proyek](#tentang-proyek)
+- [Fitur](#fitur)
+- [Teknologi yang Digunakan](#teknologi-yang-digunakan)
+- [Instalasi](#instalasi)
+- [Penggunaan](#penggunaan)
+- [Struktur Program](#struktur-program)
+- [Dokumentasi Kode](#dokumentasi-kode)
+
+## Tentang Proyek
+Proyek ini dikembangkan sebagai solusi untuk manajemen penjualan di dua UMKM:
+- Siomay Ikan Ibu Yati
+- Rotice (Waffle Ice Cream)
+
+Sistem ini dirancang untuk mengatasi beberapa masalah utama:
+- Antrian yang panjang saat jam sibuk
+- Kesalahan pencatatan pesanan
+- Monitoring stok bahan baku
+- Pencatatan keuangan manual
+
+## Fitur
 
 ### Mode Admin
 1. Manajemen Bahan
-   - Tambah bahan baru (kode, nama, stok awal, stok minimal)
-   - Lihat daftar bahan dan stoknya
+   - Tambah bahan baru
+   - Lihat daftar bahan
    - Update stok bahan
-   - Melihat peringatan bahan yang hampir habis
+   - Cek bahan hampir habis
 
 2. Manajemen Menu
-   - Tambah menu baru dengan informasi (kode, nama, harga)
-   - Tambah komposisi bahan yang dibutuhkan
-   - Lihat daftar menu beserta ketersediaan
-   - Mengubah resep/komposisi menu
+   - Tambah menu baru
+   - Tambah komposisi menu
+   - Lihat daftar menu
+   - Lihat detail menu
 
 ### Mode Kasir
 1. Manajemen Pesanan
-   - Membuat pesanan baru
-   - Melihat menu yang tersedia
-   - Sistem otomatis mengecek ketersediaan bahan
-   - Mendapat peringatan jika stok tidak mencukupi
-   - Melihat status pesanan (diterima/ditolak)
+   - Lihat menu tersedia
+   - Tambah item ke pesanan
+   - Lihat pesanan aktif
+   - Selesaikan pesanan
+   - Batalkan pesanan
 
-## Cara Penggunaan
+## Teknologi yang Digunakan
+- Bahasa: C++
+- Compiler: g++ (C++11 atau lebih tinggi)
+- IDE: HackerRank online IDE
 
-### Mode Admin
-1. Pilih menu Admin (1)
-2. Pilih operasi yang diinginkan:
-   - Manajemen Bahan (1-4)
-   - Manajemen Menu (5-8)
-3. Ikuti instruksi yang muncul di layar
+## Instalasi
 
-### Mode Kasir
-1. Pilih menu Kasir (2)
-2. Pilih operasi yang diinginkan:
-   - Lihat Menu (1)
-   - Buat Pesanan (2)
-   - Lihat Pesanan (3)
-   - Selesaikan/Batalkan Pesanan (4/5)
+### Persyaratan Sistem
+- C++11 compiler atau lebih tinggi
+- Minimum 512MB RAM
+- Terminal/Command prompt
 
-## Implementasi
-- Program dibuat dengan bahasa C++
-- Dijalankan di Terminal/Command Prompt
-- Menggunakan sintaks yang dipelajari di kelas
-- Implementasi interaktif dan user-friendly
-- Setiap requirement diimplementasikan dalam fungsi terpisah
+### Langkah Instalasi
+1. Clone repository
+```bash
+git clone https://github.com/username/pos-system.git
+```
+
+2. Masuk ke direktori proyek
+```bash
+cd pos-system
+```
+
+3. Compile program
+```bash
+g++ -std=c++11 main.cpp -o pos_system
+```
+
+4. Jalankan program
+```bash
+./pos_system
+```
+
+## Penggunaan
+
+### Menu Utama
+1. Mode Admin
+   - Manajemen bahan
+   - Manajemen menu
+
+2. Mode Kasir
+   - Manajemen pesanan
+   - Cetak struk
+
+### Format Input
+1. Tambah Bahan
+```
+Kode Bahan: [string]
+Nama Bahan: [string]
+Stok Awal: [integer]
+Stok Minimal: [integer]
+```
+
+2. Tambah Menu
+```
+Kode Menu: [string]
+Nama Menu: [string]
+Harga: [double]
+```
+
+3. Tambah Pesanan
+```
+Kode Menu: [string]
+Jumlah: [integer]
+```
 
 ## Struktur Program
-- `struct Bahan`: Menyimpan informasi bahan
-- `struct Menu`: Menyimpan informasi menu
-- `struct ItemPesanan`: Menyimpan item pesanan
-- `struct Pesanan`: Menyimpan pesanan aktif
-- `class SistemPOS`: Class utama untuk manajemen sistem
+
+### Class Utama
+1. `Bahan`
+   - Menyimpan informasi bahan
+   - Manajemen stok
+
+2. `Menu`
+   - Informasi menu
+   - Komposisi bahan
+
+3. `ItemPesanan`
+   - Detail item pesanan
+   - Kalkulasi subtotal
+
+4. `SistemPOS`
+   - Logika utama sistem
+   - Integrasi semua komponen
+
+## Dokumentasi Kode
+
+### Contoh Penggunaan
+
+#### Tambah Bahan Baru
+```cpp
+sistem.tambahBahan("B001", "Tepung", 100, 20);
+```
+
+#### Tambah Menu
+```cpp
+sistem.tambahMenu("M001", "Siomay Ikan", 2500);
+sistem.tambahKomposisiMenu("M001", "B001", 5);
+```
+
+#### Proses Pesanan
+```cpp
+sistem.tambahItemPesanan("M001", 3);
+sistem.selesaikanPesanan();
+```
+
+## Optimasi dan Keterbatasan
+
+### Optimasi yang Diterapkan
+- Penggunaan array statis untuk manajemen memori yang efisien
+- Validasi input untuk mencegah error
+- Error handling untuk kasus-kasus khusus
+
+### Keterbatasan Sistem
+- Jumlah maksimum produk dan pesanan tetap
+- Tidak ada penyimpanan data permanen
+- Interface berbasis terminal
+
+## Pengembangan Kedepan
+
+### Rencana Jangka Pendek
+1. Teknis
+   - Implementasi database
+   - UI/UX enhancement
+   - Print functionality
+
+2. Bisnis
+   - Sistem membership
+   - Diskon dan promo
+   - Laporan penjualan
+
+### Rencana Jangka Panjang
+1. Sistem Integration
+   - Cloud backup
+   - Payment gateway
+   - Accounting system
+
+2. Business Analytics
+   - Predictive analytics
+   - Customer behavior
+   - Inventory optimization
+
+## Lisensi
+Program ini dikembangkan sebagai bagian dari tugas mata kuliah Algoritma dan Pemrograman.
+
+## Kontak
+Untuk pertanyaan dan informasi lebih lanjut, silakan hubungi:
+- Email: [email]
+- Program Studi: Sistem Teknologi dan Informasi
+- Fakultas Ilmu Komputer
+- Universitas Cakrawala
