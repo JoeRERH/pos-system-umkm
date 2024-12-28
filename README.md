@@ -195,7 +195,7 @@ Program ini dikembangkan sebagai bagian dari tugas mata kuliah Algoritma dan Pem
 
 ## Kontak
 Untuk pertanyaan dan informasi lebih lanjut, silakan hubungi:
-- Email: [email]
+- Email: [joererh@gmail.com]
 - Program Studi: Sistem Teknologi dan Informasi
 - Fakultas Ilmu Komputer
 - Universitas Cakrawala
