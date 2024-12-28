@@ -1,209 +1,116 @@
-/*
-* Point of Sales (POS) System for UMKM
-* Kelompok 2:
-* - Johannes Ronald Elyeser Roparulian Hutagalung (24130400002)
-* - Fajar Dwiharjo (24130500010)
-*/
+// Program Point of Sales (POS) Sederhana untuk UMKM
+// Kelompok 2:
+// - Johannes Ronald Elyeser Roparulian Hutagalung (24130400002)
+// - Fajar Dwiharjo (24130500010)
 
 #include <iostream>
-#include <string>
-#include <iomanip>
 using namespace std;
 
-const int MAX_PRODUCTS = 100;
-const int MAX_ITEMS = 50;
+// Deklarasi array untuk menyimpan data
+const int MAX = 50;
+string kode[MAX];
+string nama[MAX];
+int stok[MAX];
+int stok_minimal[MAX];
+int jumlah_data = 0;
 
-// Class untuk Bahan
-class Bahan {
-private:
-    string kode;
-    string nama;
-    int stok;
-    int stokMinimal;
-    
-public:
-    Bahan() {
-        kode = "";
-        nama = "";
-        stok = 0;
-        stokMinimal = 0;
-    }
-    
-    Bahan(string k, string n, int s, int sm) {
-        kode = k;
-        nama = n;
-        stok = s;
-        stokMinimal = sm;
-    }
-    
-    // Getters
-    string getKode() { return kode; }
-    string getNama() { return nama; }
-    int getStok() { return stok; }
-    int getStokMinimal() { return stokMinimal; }
-    
-    // Setters
-    void setStok(int s) { stok = s; }
-};
+// Fungsi untuk menampilkan menu
+void tampilkan_menu() {
+    cout << "\n=== SISTEM POS UMKM ===\n";
+    cout << "1. Tambah Bahan\n";
+    cout << "2. Lihat Bahan\n";
+    cout << "3. Update Stok\n";
+    cout << "4. Keluar\n";
+    cout << "Pilihan: ";
+}
 
-// Class untuk Menu
-class Menu {
-private:
-    string kode;
-    string nama;
-    double harga;
-    string kodeBahan[MAX_PRODUCTS];
-    int jumlahBahan[MAX_PRODUCTS];
-    int bahanCount;
-    
-public:
-    Menu() {
-        kode = "";
-        nama = "";
-        harga = 0;
-        bahanCount = 0;
+// Fungsi untuk menambah bahan
+void tambah_bahan() {
+    if(jumlah_data < MAX) {
+        cout << "\nTambah Bahan Baru\n";
+        cout << "Kode: ";
+        cin >> kode[jumlah_data];
+        cout << "Nama: ";
+        cin >> nama[jumlah_data];
+        cout << "Stok: ";
+        cin >> stok[jumlah_data];
+        cout << "Stok Minimal: ";
+        cin >> stok_minimal[jumlah_data];
+        
+        jumlah_data = jumlah_data + 1;
+        cout << "Bahan berhasil ditambahkan!\n";
+    } else {
+        cout << "Penyimpanan penuh!\n";
     }
-    
-    Menu(string k, string n, double h) {
-        kode = k;
-        nama = n;
-        harga = h;
-        bahanCount = 0;
-    }
-    
-    // Getters
-    string getKode() { return kode; }
-    string getNama() { return nama; }
-    double getHarga() { return harga; }
-    int getBahanCount() { return bahanCount; }
-    string getKodeBahan(int index) { return kodeBahan[index]; }
-    int getJumlahBahan(int index) { return jumlahBahan[index]; }
-    
-    void tambahBahan(string kodeBahan, int jumlah) {
-        if (bahanCount < MAX_PRODUCTS) {
-            this->kodeBahan[bahanCount] = kodeBahan;
-            this->jumlahBahan[bahanCount] = jumlah;
-            bahanCount++;
-        }
-    }
-};
+}
 
-// Class untuk Item Pesanan
-class ItemPesanan {
-private:
-    string kodeMenu;
-    int jumlah;
-    double subTotal;
+// Fungsi untuk melihat daftar bahan
+void lihat_bahan() {
+    cout << "\nDaftar Bahan\n";
+    cout << "-------------\n";
     
-public:
-    ItemPesanan() {
-        kodeMenu = "";
-        jumlah = 0;
-        subTotal = 0;
+    for(int i = 0; i < jumlah_data; i++) {
+        cout << "Kode: " << kode[i] << "\n";
+        cout << "Nama: " << nama[i] << "\n";
+        cout << "Stok: " << stok[i] << "\n";
+        cout << "Stok Minimal: " << stok_minimal[i] << "\n";
+        cout << "-------------\n";
     }
-    
-    ItemPesanan(string kode, int jml, double total) {
-        kodeMenu = kode;
-        jumlah = jml;
-        subTotal = total;
-    }
-    
-    // Getters
-    string getKodeMenu() { return kodeMenu; }
-    int getJumlah() { return jumlah; }
-    double getSubTotal() { return subTotal; }
-};
+}
 
-// Class utama sistem POS
-class SistemPOS {
-private:
-    Bahan daftarBahan[MAX_PRODUCTS];
-    int bahanCount;
-    Menu daftarMenu[MAX_PRODUCTS];
-    int menuCount;
-    ItemPesanan pesananAktif[MAX_ITEMS];
-    int pesananCount;
-    double totalHarga;
+// Fungsi untuk update stok
+void update_stok() {
+    string kode_cari;
+    cout << "\nMasukkan kode bahan: ";
+    cin >> kode_cari;
     
-public:
-    SistemPOS() {
-        bahanCount = 0;
-        menuCount = 0;
-        pesananCount = 0;
-        totalHarga = 0;
-    }
-    
-    void tambahBahan(string kode, string nama, int stokAwal, int stokMin) {
-        if (bahanCount < MAX_PRODUCTS) {
-            for (int i = 0; i < bahanCount; i++) {
-                if (daftarBahan[i].getKode() == kode) {
-                    cout << "Error: Kode bahan sudah digunakan!\n";
-                    return;
-                }
+    int ketemu = 0;
+    for(int i = 0; i < jumlah_data; i++) {
+        if(kode[i] == kode_cari) {
+            cout << "Stok lama: " << stok[i] << "\n";
+            cout << "Stok baru: ";
+            cin >> stok[i];
+            
+            if(stok[i] <= stok_minimal[i]) {
+                cout << "Peringatan: Stok dibawah minimal!\n";
             }
-            daftarBahan[bahanCount] = Bahan(kode, nama, stokAwal, stokMin);
-            bahanCount++;
-            cout << "Bahan berhasil ditambahkan!\n";
-        } else {
-            cout << "Error: Kapasitas bahan penuh!\n";
+            
+            ketemu = 1;
+            cout << "Stok berhasil diupdate!\n";
+            break;
         }
     }
     
-    void lihatDaftarBahan() {
-        cout << "\nDaftar Bahan:\n";
-        cout << "--------------------------------\n";
-        cout << "Kode\tNama\tStok\tStok Min\n";
-        cout << "--------------------------------\n";
-        for (int i = 0; i < bahanCount; i++) {
-            cout << daftarBahan[i].getKode() << "\t"
-                 << daftarBahan[i].getNama() << "\t"
-                 << daftarBahan[i].getStok() << "\t"
-                 << daftarBahan[i].getStokMinimal() << "\n";
-        }
-        cout << "--------------------------------\n";
+    if(ketemu == 0) {
+        cout << "Bahan tidak ditemukan!\n";
     }
-    
-    void updateStokBahan(string kode, int jumlahBaru) {
-        for (int i = 0; i < bahanCount; i++) {
-            if (daftarBahan[i].getKode() == kode) {
-                daftarBahan[i].setStok(jumlahBaru);
-                cout << "Stok bahan " << daftarBahan[i].getNama() << " berhasil diupdate!\n";
-                if (daftarBahan[i].getStok() <= daftarBahan[i].getStokMinimal()) {
-                    cout << "PERINGATAN: Stok " << daftarBahan[i].getNama() 
-                         << " sudah di bawah batas minimal!\n";
-                }
-                return;
-            }
-        }
-        cout << "Bahan dengan kode " << kode << " tidak ditemukan!\n";
-    }
+}
 
-    // Continue with other methods like tambahMenu(), addToOrder(), etc.
-    // [Additional implementation details would follow here...]
-};
-
+// Program utama
 int main() {
-    SistemPOS sistem;
-    char pilihan;
+    int pilihan;
     
     do {
-        cout << "\nMenu Utama:\n";
-        cout << "1. Mode Admin\n";
-        cout << "2. Mode Kasir\n";
-        cout << "0. Keluar\n";
-        cout << "Pilihan: ";
+        tampilkan_menu();
         cin >> pilihan;
         
-        switch(pilihan) {
-            // [Implementation of menu options would go here...]
-            case '0':
-                cout << "Terima kasih telah menggunakan sistem!\n";
-                break;
-            default:
-                cout << "Pilihan tidak valid!\n";
-                break;
+        if(pilihan == 1) {
+            tambah_bahan();
+        } 
+        else if(pilihan == 2) {
+            lihat_bahan();
         }
-    } while(pilihan != '0');
+        else if(pilihan == 3) {
+            update_stok();
+        }
+        else if(pilihan == 4) {
+            cout << "Program selesai!\n";
+        }
+        else {
+            cout << "Pilihan tidak valid!\n";
+        }
+        
+    } while(pilihan != 4);
     
     return 0;
 }
